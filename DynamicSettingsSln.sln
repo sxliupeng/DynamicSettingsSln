@@ -49,7 +49,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicSettings.Common", "C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{53C02B21-BCE8-47F5-9642-1D75BE33E59E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicSettings.Domain", "Domain\DynamicSettings.Domain\DynamicSettings.Domain.csproj", "{346DF090-3505-44E2-B570-1F3CEF188B55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicSettings.Domain", "Domain\DynamicSettings.Domain\DynamicSettings.Domain.csproj", "{346DF090-3505-44E2-B570-1F3CEF188B55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -66,6 +66,26 @@ namespace DynamicSettings.API
 			#endregion
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+
+
+			#region Redis
+
+			//添加Redis
+			//Microsoft.Extensions.Caching.Redis
+			services.AddDistributedRedisCache(options =>//Microsoft.Extensions.Caching.Distributed
+			{
+				options.Configuration = "localhost";
+			});
+
+			//添加Session
+			services.AddSession(options =>
+			{
+				options.IdleTimeout=TimeSpan.FromMinutes(1);
+				//options.Cookie.HttpOnly = true;//设为httponly
+			});
+
+			#endregion
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,7 +98,12 @@ namespace DynamicSettings.API
 			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 
 
+			#region
 
+			//使用Session
+			app.UseSession();
+
+			#endregion
 
 
 

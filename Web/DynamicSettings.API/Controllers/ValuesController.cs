@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using DynamicSettings.API.Model;
+using DynamicSettings.API.Util;
 using DynamicSettings.CodeFirst.Context;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 
 namespace DynamicSettings.API.Controllers
@@ -16,14 +21,17 @@ namespace DynamicSettings.API.Controllers
 		private SettingsManagementDbContext _context;
 		private SmtpConfig SmtpConfig { get; }
 		private readonly IConfiguration Config;
+		private DistributedCache cache;
 
 		public ValuesController(SettingsManagementDbContext context
 			, Microsoft.Extensions.Options.IOptions<SmtpConfig> smtpConfig
-			, IConfiguration config)
+			, IConfiguration config
+			, IDistributedCache cache)
 		{
 			_context = context;
 			SmtpConfig = smtpConfig.Value;
 			Config = config;
+			this.cache=new DistributedCache(cache);
 		}
 
 		// GET api/values
@@ -70,6 +78,26 @@ namespace DynamicSettings.API.Controllers
 			//}
 			//Assert.NotNull(model);
 			//Assert.Equal(true, result);
+
+			#region
+
+			if (HttpContext.Session==null || !HttpContext.Session.IsAvailable)
+			{
+				HttpContext.Session.SetString("UserID","1000");//Microsoft.AspNetCore.Http
+			}
+
+			//添加
+			bool booladd = cache.Add("id", "sssss");
+			//验证
+			bool boolExists = cache.Exists("id");
+			//获取
+			object obj = cache.Get("id");
+			//删除
+			bool boolRemove = cache.Remove("id");
+			//修改
+			bool boolModify = cache.Modify("id", "ssssssss");
+
+			#endregion
 
 			return new string[] { "value1", "value2" };
 		}

@@ -26,6 +26,6 @@ namespace DynamicSettings.CodeFirst.IDataAccess
 	    //List<T> QueryAll(Func<T, bool> predicate);
 
 		//分页、排序
-		IQueryable<T> Query(Expression<Func<T, bool>> predicate);
+		IQueryable<T> Query(Expression<Func<T, bool>> predicate, Expression<Func<T, bool>> keySelector=null,int? pageSize=null,int? pageIndex=null);
     }
 }

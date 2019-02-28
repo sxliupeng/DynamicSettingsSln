@@ -141,7 +141,7 @@ namespace DynamicSettings.CodeFirst.DataAccess
 	    //public List<T> QueryAll(Func<T, bool> predicate = null)
 
 
-		public IQueryable<T> Query(Expression<Func<T, bool>> predicate)
+		public IQueryable<T> Query(Expression<Func<T, bool>> predicate, Expression<Func<T,bool>> keySelector, int? pageSize = null, int? pageIndex = null)
         {
             IQueryable<T> result = null;
 
@@ -150,7 +150,7 @@ namespace DynamicSettings.CodeFirst.DataAccess
                 if (null == predicate)
                     return result;
 
-                result = ctx.Set<T>().Where(predicate);
+                result = ctx.Set<T>().Where(predicate).OrderBy(keySelector).Skip((pageIndex.Value-1)*pageSize.Value).Take(pageSize.Value);
             }
             catch (Exception ex)
             {

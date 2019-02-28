@@ -40,7 +40,7 @@ namespace DynamicSettings.MVC
 					, builder => builder.MigrationsAssembly("DynamicSettings.CodeFirst.Context")));
 			//optionsBuilder.UseMySql("Server=localhost;Port=3306;Database=BloggingDB; User=root;Password=;");
 
-			services.AddHostedService<User>();
+			//services.AddHostedService<User>();
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}
