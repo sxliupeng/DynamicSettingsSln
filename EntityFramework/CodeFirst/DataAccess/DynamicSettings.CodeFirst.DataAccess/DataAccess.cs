@@ -162,6 +162,27 @@ namespace DynamicSettings.CodeFirst.DataAccess
             //throw new NotImplementedException();
         }
 
+        public IQueryable<T> Query(Expression<Func<T, bool>> predicate)
+        {
+            IQueryable<T> result = null;
+
+            try
+            {
+                if (null == predicate)
+                    return result;
+
+                result = ctx.Set<T>().Where(predicate);
+            }
+            catch (Exception ex)
+            {
+
+                //throw;
+            }
+
+            return result;
+            //throw new NotImplementedException();
+        }
+
         public bool Update(T obj, bool addIfNotExists = false)
         {
             bool result = false;
